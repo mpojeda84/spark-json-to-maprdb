@@ -2,7 +2,7 @@ package com.mpojeda84.mapr.scala
 
 ;
 
-case class Configuration(jsonFile: String, tableName: String, appName: String, idField: String)
+case class Configuration(jsonFile: String, tableName: String, appName: String)
 
 object Configuration {
 
@@ -13,8 +13,7 @@ object Configuration {
   object DefaultConfiguration extends Configuration(
     "path/to/json",
     "/path/to/table",
-    "App Name",
-    "_id"
+    "App Name"
   )
 
   private val parser = new scopt.OptionParser[Configuration]("App Name") {
@@ -29,10 +28,6 @@ object Configuration {
       .action((t, config) => config.copy(tableName = t))
       .maxOccurs(1)
       .text("MapR-DB table name to write stats to")
-
-    opt[String]('i', "id")
-      .action((i, config) => config.copy(idField = i))
-      .text("Id Field for new table")
 
     opt[String]('n', "name")
       .action((n, config) => config.copy(appName = n))
